@@ -42,30 +42,9 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
         - `valor_unitario`: 139.55  
         - `estado`: RJ 
 
-2. Corrigir possíveis erros ou abreviações na descrição do produto através da ferramenta `normalizar_descricao`
-   Mostrar a entrada e a saida da correção para conferência
+2. Gere uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados pelas ferramentas `normalizar_descricao`, `buscar_produto_vetorizado` e `resolve_ean`. Chame essa lista de **Lista "B"**
 
-3. A ferramenta `buscar_produto_vetorizado` deve retornar uma lista de objetos estruturados, contendo:
-   **Dados Lista "B"**
-   - descrição,
-   - EAN (campo `codigo`).
-
-   Exemplo:
-   ```json
-   [
-     {{"descricao": "Harry Potter e a Pedra Filosofal", "codigo": "LIV1096"}},
-     {{"descricao": "Harry Potter e a Pedra Filosofal", "codigo": "LIV1020"}}
-   ]
-
-4. Use a ferramenta `resolve_ean` para obter o EAN a partir da descrição por fonemas. 
-   - Se retornar algum EAN valido, adicione a lista retornada da ferramenta `buscar_produto_vetorizado`
-   **Dados Lista "B"**
-   - descrição,
-   - EAN (campo `codigo`).
-
-5. Crie uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados. Chame-a de **Lista "B"**
-
-6. Valide se existe algum código EAN da **Lista "B"** dentro da **Lista "A"**  (`codigo_ean`)
+3. Valide se existe algum código EAN da **Lista "B"** dentro da **Lista "A"**  (`codigo_ean`)
 
     - Para **cada nota fiscal válida** encontrada com os EANs compatíveis, crie um item na **Lista "C"** 
         **Dados Lista "C"**
@@ -76,9 +55,9 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
         - `descricao_produto`
         - `valor_unitario`
     
-7. Use a ferramenta `inserir_rma` para incluir um registro de RMA com os dados da Lista "C"
-8. Mostrar a **Lista "C"**
+4. Use a ferramenta `inserir_rma` para incluir um registro de RMA com os dados da Lista "C"
+5. Mostrar a **Lista "C"**
 
-9. Se não existir nenhum item na Lista "C", mostre:
+6. Se não existir nenhum item na Lista "C", mostre:
      “EAN não encontrado com os critérios fornecidos.” 
 
