@@ -13,10 +13,25 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
 
 ### Tarefas
 
-1. Corrigir possíveis erros ou abreviações na descrição do produto através da ferramenta `normalizar_descricao`
+1. Buscar por notas fiscais de saída da empresa utilizando a ferramenta `buscar_notas_por_criterios` e os dados de entrada da nota fiscal de devolução do cliente
+   - Passar os dados de:
+     - `customer`
+     - `price` (se houver)
+     - `location`
+   
+   - O retorno deve ser uma lista com os seguintes campos:  
+        **Dados:**
+        - `numero_nf`: NF000043  
+        - `nome_cliente`: Cliente 43
+        - `codigo_ean`: LIV1020  
+        - `descricao_produto`: Harry Poter  
+        - `valor_unitario`: 139.55  
+        - `estado`: RJ 
+
+2. Corrigir possíveis erros ou abreviações na descrição do produto através da ferramenta `normalizar_descricao`
    Mostrar a entrada e a saida da correção para conferência
 
-2. A ferramenta `buscar_produto_vetorizado` deve retornar uma lista de objetos estruturados, contendo:
+3. A ferramenta `buscar_produto_vetorizado` deve retornar uma lista de objetos estruturados, contendo:
    - descrição,
    - EAN (campo `codigo`).
 
@@ -27,42 +42,22 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
      {{"descricao": "Harry Potter e a Pedra Filosofal", "codigo": "LIV1020"}}
    ]
 
-3. Use a ferramenta `resolve_ean` para obter o EAN mais provável a partir da descrição por fonemas. 
+4. Use a ferramenta `resolve_ean` para obter o EAN a partir da descrição por fonemas. 
    - Se retornar um dicionário com erro, ignore o retorno e siga a tarefa seguinte.
    - Se retornar algum EAN, adicione a lista retornada da ferramenta `buscar_produto_vetorizado`
 
-4. Após normalizar a descrição e obter os EANs das ferramentas `buscar_produto_vetorizado` e `resolve_ean`, aplique a seguinte lógica:
+5. Crie uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados.
 
-   - Crie uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados.
-   - Para **cada EAN dessa lista**, faça o seguinte:
-     - Use a ferramenta `buscar_notas_por_criterios`, passando:
-       - o EAN,
-       - o nome do cliente (`customer`),
-       - o preço unitário (`price`),
-       - o estado (`location`).
-     - Se a busca retornar uma **nota fiscal válida**, retorne imediatamente os seguintes campos:
-       •    número da nota,  
-       •    cliente,  
-       •    estado,  
-       •    EAN,  
-       •    descrição do produto,  
-       •    preço unitário.
-     - Caso contrário, **passe ao próximo EAN** e repita a tentativa.
-   - **Continue até testar todos os EANs da lista.**
-   - Se nenhuma nota fiscal for encontrada após todas as tentativas, retorne exatamente:
-     “EAN não encontrado com os critérios fornecidos.”
-                     
-    Se encontrar uma nota fiscal de saída correspondente, retorne:
-    
-        •   número da nota,
-    
-        •   cliente,
-    
-        •   estado,
-    
-        •   EAN,
-    
-        •   descrição do produto,
-    
-        •   preço unitário.
+5. Valide se existe algum EAN da lista gerada dentro da lista executada pela ferramenta `buscar_notas_por_criterios` (`codigo_ean`)
+
+    - Para **cada nota fiscal válida** encontrada com os EANs compatíveis, mostre:
+    •    número da nota (`numero_nf`),  
+    •    cliente (`nome_cliente`),  
+    •    estado (`estado`),  
+    •    EAN (`codigo_ean`),  
+    •    descrição do produto (`descricao_produto`),  
+    •    preço unitário (`valor_unitario`).
+
+    - Se nenhuma nota fiscal for encontrada após todas as tentativas, retorne exatamente:
+     “EAN não encontrado com os critérios fornecidos.”   
 
