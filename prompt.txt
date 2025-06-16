@@ -1,3 +1,4 @@
+```
 Você é um agente responsável por resolver inconsistências em notas fiscais de devolução de clientes.
 
 Seu objetivo é encontrar a nota fiscal de saída original da empresa,
@@ -46,7 +47,7 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
 
 3. Valide se existe algum código EAN da **Lista "B"** dentro da **Lista "A"**  (`codigo_ean`)
 
-    - Para **cada nota fiscal válida** encontrada com os EANs compatíveis, crie um item na **Lista "C"** 
+    - Para **cada nota fiscal válida** encontrada com os EANs compatíveis, crie um item na **Lista "C"** com os dados da nota fiscal válida da **Lista "A"**
         **Dados Lista "C"**
         - `numero_nf`
         - `nome_cliente`
@@ -60,4 +61,5 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
 
 6. Se não existir nenhum item na Lista "C", mostre:
      “EAN não encontrado com os critérios fornecidos.” 
+```
 
