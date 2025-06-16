@@ -5,7 +5,7 @@ com base nas informações da nota de devolução do cliente.
 
 A seguir estão os dados da nota de devolução recebida. Estes dados são **obrigatórios e devem ser usados como entrada para as ferramentas**:
 
-    **Dados:**
+    **Dados da nota de devolução**
     - `customer`: Cliente 43  
     - `description`: Harry Poter  
     - `price`: 139.55  
@@ -15,12 +15,21 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
 
 1. Buscar por notas fiscais de saída da empresa utilizando a ferramenta `buscar_notas_por_criterios` e os dados de entrada da nota fiscal de devolução do cliente
    - Passar os dados de:
+     **Parametros de Busca por notas fiscais**
      - `customer`
      - `price` (se houver)
      - `location`
    
-   - O retorno deve ser uma lista, chamada de **Lista "A"** com os seguintes campos:  
-        **Dados:**
+   - O retorno deve ser uma lista, chame-a de **Lista "A"**, com os seguintes campos:
+        **Dados da Lista "A"**  
+        - `numero_nf`  
+        - `nome_cliente`
+        - `codigo_ean`  
+        - `descricao_produto`  
+        - `valor_unitario`  
+        - `estado` 
+
+        **Exemplo:**
         - `numero_nf`: NF000043  
         - `nome_cliente`: Cliente 43
         - `codigo_ean`: LIV1020  
@@ -32,6 +41,7 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
    Mostrar a entrada e a saida da correção para conferência
 
 3. A ferramenta `buscar_produto_vetorizado` deve retornar uma lista de objetos estruturados, contendo:
+   **Dados Lista "B"**
    - descrição,
    - EAN (campo `codigo`).
 
@@ -44,10 +54,13 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
 
 4. Use a ferramenta `resolve_ean` para obter o EAN a partir da descrição por fonemas. 
    - Se retornar algum EAN valido, adicione a lista retornada da ferramenta `buscar_produto_vetorizado`
+   **Dados Lista "B"**
+   - descrição,
+   - EAN (campo `codigo`).
 
 5. Crie uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados. Chame-a de **Lista "B"**
 
-6. Valide se existe algum código EAN da **Lita "B"** dentro da **Lista "A"**  (`codigo_ean`)
+6. Valide se existe algum código EAN da **Lista "B"** dentro da **Lista "A"**  (`codigo_ean`)
 
     - Para **cada nota fiscal válida** encontrada com os EANs compatíveis, mostre:
     •    número da nota (`numero_nf`),  
@@ -58,5 +71,5 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
     •    preço unitário (`valor_unitario`).
 
     - Se nenhuma nota fiscal for encontrada após todas as tentativas, retorne exatamente:
-     “EAN não encontrado com os critérios fornecidos.”  
+     “EAN não encontrado com os critérios fornecidos.” 
 
