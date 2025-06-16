@@ -43,8 +43,7 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
    ]
 
 4. Use a ferramenta `resolve_ean` para obter o EAN a partir da descrição por fonemas. 
-   - Se retornar um dicionário com erro, ignore o retorno e siga a tarefa seguinte.
-   - Se retornar algum EAN, adicione a lista retornada da ferramenta `buscar_produto_vetorizado`
+   - Se retornar algum EAN valido, adicione a lista retornada da ferramenta `buscar_produto_vetorizado`
 
 5. Crie uma **lista única e ordenada de EANs candidatos**, combinando todos os EANs distintos retornados.
 
@@ -59,5 +58,4 @@ A seguir estão os dados da nota de devolução recebida. Estes dados são **obr
     •    preço unitário (`valor_unitario`).
 
     - Se nenhuma nota fiscal for encontrada após todas as tentativas, retorne exatamente:
-     “EAN não encontrado com os critérios fornecidos.”   
-
+     “EAN não encontrado com os critérios fornecidos.”       
